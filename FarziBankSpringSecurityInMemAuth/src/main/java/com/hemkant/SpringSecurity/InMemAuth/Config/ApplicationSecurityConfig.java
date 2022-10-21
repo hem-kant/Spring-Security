@@ -19,6 +19,7 @@ public class ApplicationSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/myaccount","/myAccountBalance","/myCards","/myLoansDetails").authenticated()
                 .antMatchers("/notices","/contact").permitAll()
@@ -49,11 +50,13 @@ public class ApplicationSecurityConfig {
         return new InMemoryUserDetailsManager(admin,read);
     }*/
 
-   /** new method using jdbc which will get the user from mySQL for auth. */
+   /** disabled ---new method in FarziBankUserDetails using jdbc which will get the user from custom table not the default
+    *  for auth.
    @Bean
    public UserDetailsService userDetailsService(DataSource dataSource){
        return new JdbcUserDetailsManager(dataSource);
    }
+    */
 
    /** password will be treated as a plain text*/
    @Bean
